@@ -25,9 +25,15 @@ mkdir(folders.init)
 % Select videos
 fly = num2str(fly);
 for n = 1:3 % each camera view
-    [names.vid{n,1}, folders.vid{n,1}] = uigetfile(fullfile(root, ['fly_' fly]), ...
+    [names.vid{n,1}, folders.vid{n,1}] = uigetfile(fullfile(root, ['fly_' fly '/*.*']), ...
         ['Select video from camera #' num2str(n)]);
-    paths.vid{n,1} = fullfile(folders.vid{n}, names.vid{n}); 
+    if names.vid{n,1} == 0
+        fprintf('Missing video, end function: initialize!\n');
+        return
+    else
+        paths.vid{n,1} = fullfile(folders.vid{n}, names.vid{n}); 
+        fprintf('Video selected: %s.\n', paths.vid{n,1});
+    end 
 end
 
 % Select and load the backgrounds
@@ -36,7 +42,9 @@ for n = 1:3 % each camera view
     [names.background{n,1}] = uigetfile({'*.tif','files'}, ...
         ['Select background for camera #' num2str(n)], folders.background, 'MultiSelect','off');
     paths.background{n,1} = fullfile(folders.background, names.background{n});
-    
+    if names.background{n,1} ~= 0
+        fprintf('Background selected: %s.\n', names.background{n,1});
+    end
     try
         I = imread(paths.background{n});
         I = imcomplement(I);
