@@ -28,7 +28,7 @@ for n = 1:3 % each camera view
     [names.vid{n,1}, folders.vid{n,1}] = uigetfile(fullfile(root, ['fly_' fly '/*.*']), ...
         ['Select video from camera #' num2str(n)]);
     if names.vid{n,1} == 0
-        fprintf('Missing video, end function: initialize!\n');
+        warning('Missing video, end function: initialize!\n');
         return
     else
         paths.vid{n,1} = fullfile(folders.vid{n}, names.vid{n}); 
