@@ -2,10 +2,10 @@
 Bug 1: When generating/regenerating new frames, all data is refreshed, which makes the hull reconstruction error
 something need to be fixed after ```initialize directory``` and ```initialize(root, fly)```.
   
-Because Bug 1 can cause a huge problem when running the code accidentally, the code now is temperally seperated into two '.m' files.
+Because Bug 1 can cause a huge problem when running the code accidentally, the code now is temporally separated into two '.m' files.
 The ```run_mask.m``` is to create masks for a video only, ```run_main.m``` is for hull reconstruction. 
 
-Bug 2: Colors flip at 
+Bug 2: Colors flip at ```analyze the hull``` in ```run_main.m```. Left wing should be blue but it shows red, the same issue with right wing.
 
 # create mask for a new video
 1. Open run_mask.m
