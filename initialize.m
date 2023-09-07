@@ -25,7 +25,7 @@ mkdir(folders.init)
 % Select videos
 fly = num2str(fly);
 for n = 1:3 % each camera view
-    [names.vid{n,1}, folders.vid{n,1}] = uigetfile(fullfile(root, ['fly_' fly '\vid\*.avi']), ...
+    [names.vid{n,1}, folders.vid{n,1}] = uigetfile(fullfile(root, ['fly_' fly]), ...
         ['Select video from camera #' num2str(n)]);
     paths.vid{n,1} = fullfile(folders.vid{n}, names.vid{n}); 
 end
