@@ -24,7 +24,7 @@ with the same order when choosing the 3 videos in ```3.1```
 4.3 Drag from the center of the body to the end of the pin along the pin 3 hit 'Space' when done (3 times).  
 ![example_drag](example_figures/example_drag.png)
 4.4 Crop the images and leave enough space for all yaw angles (reach the end of the pin). double click the box when done (3 times).  
-![example_crop](example_figures/example_crop.png)
+![example_crop](example_figures/example_crop.png)  
 
 5. Run until ```Initialize voxel range and reconstruction resolution (reduces computational requirement)```:  
 Click and select the space covers the whole fly and tether. Double click to link end and start points. 
@@ -72,7 +72,7 @@ Just for visual check.
 
 10. Under ```Analyze the hull```:  
 This function is to check if the solid chord's direction is from the center of the wing to the leading of the wing.  
-![example_CorrectChord1](example_Ffigures/example_CorrectChord1.png)  
+![example_CorrectChord1](example_figures/example_CorrectChord1.png)  
 ![example_CorrectChord2](example_figures/example_CorrectChord3.png)  
 If it is correct, type '3' and hit 'Enter'.  
 If it is not correct: 
