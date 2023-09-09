@@ -19,8 +19,7 @@ close all
 root = 'S:\Public\Lingsheng\Laser_RigidExp';
 fly = 1000; %change fly number to match the number of fly you are analyzing 
 
-%% initialize directory
-% hint:copy the root before run this line
+%% initialize directory (mainly save z-axis, crop volumn and directories into init.mat.)
 % choose videos from cam 1 to cam 3 from the root and fly number above. Than, choose background in the same order of the videos.
 % drag from the center of the body to the end of the pin along the pin 3
 % hit space when done. 3 times.
@@ -30,7 +29,7 @@ fly = 1000; %change fly number to match the number of fly you are analyzing
 
 %% tracking start and end index
 sI = 20; %start frame
-eI = 8020; %end frame
+eI = 40; %end frame
 laser_activation_frame=8000; % the exact frame in which the wing got hit by laser
 init = load([root '\fly_' num2str(fly) '\init\init.mat']); %load intialization
 load([root '\fly_' num2str(fly) '\init\init.mat']);
@@ -38,7 +37,7 @@ voxel_size = 5e-5; % the resolution of the reconstruction (voxel size)
 % %% Alter the root directory match the current machine one (yay)
 % init=AlterRootAndPaths(init,root,fly); %only for when the project was made on a different machine
 
-%% Body masks (used to create body 3D reconstruction)
+%% Body and Tether masks (used to create body 3D reconstruction)
 clc
 tic
 parfor n = 1:3 %parfor enables faster mask creation
@@ -90,7 +89,11 @@ toc
 %% Find the body 3D reconstruction and heading
 close all ; clc
 frames = sI:eI;
+% If it needs to regenerate some specific frames, please set a number
+% smaller than the specific sI, because the body angle for the first frame
+% is always 0.
 [body_angle] = reconstruct_bodyParfor(init, frames,true);
+
 %% Wing 3D reconstruction
 close all ; clc
 frames = sI:sI+eI;
