@@ -80,7 +80,42 @@ toc
 angle_dir=fullfile(init.folders.root, 'body_angle_all');
 mkdir(angle_dir)
 angle_savepath=fullfile(angle_dir, 'BodyAngle.mat');
-save(angle_savepath, 'body_angle')
+if exist(angle_savepath, 'file')
+    while true
+        fprintf('The file: %s exists, do you want to overwrite? ', angle_savepath);
+        ask_overwrite = input('[y/n]:', 's');
+        if ask_overwrite == 'n' || ask_overwrite == 'N'
+            original_sI = input('The original sI (enter an integer): ');
+            if frames(1) < original_sI
+                warning('The first frame: %d is smaller than the original sI, please check.\n', frames(1));
+                return
+            end
+            original_eI = input('The original eI (enter an integer): ');
+            bodyangle_file = load(angle_savepath);
+            if frames(1)>= original_sI && frames(end) <= original_eI % incase there may be more functions, we check the range again.
+                for ii = 2:length(frames)
+                    bodyangle_file.body_angle(frames(ii)-original_sI+1) = body_angle(ii);
+                    body_angle = bodyangle_file.body_angle;
+                    save(angle_savepath, 'body_angle');
+                end
+            else
+                warning('The first frame: %d and the last frame: %d are not within the original sI and eI, please check.\n', frames(1), frames(end));
+                return
+            end
+            break
+        elseif ask_overwrite == 'y' || ask_overwrite == 'Y'
+            fprintf('overwrite: %s\n', angle_savepath);
+            save(angle_savepath, 'body_angle');
+            save(fullfile(angle_dir, 'angle_frames.mat'), 'frames')
+            break
+        else
+            warning(['The input is neither ', 'y ', 'nor ', 'n ', 'please re-enter.\n']);
+        end
+    end
+else
+    save(angle_savepath, 'body_angle');
+    save(fullfile(angle_dir, 'angle_frames.mat'), 'frames')
+end
 end
 %% FUNCTIONS-----------------
 function parsave(savepath, frame,body_xyz,body_vector,x_axis,y_axis,z_axis,body_angle)
@@ -124,6 +159,7 @@ switch flip_axis
     case 'n'
         %Do nothing
 end
+
 close(f1_body)
 clear body_center body_vector_red
 %% rest of the axes
