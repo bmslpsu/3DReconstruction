@@ -704,8 +704,8 @@ for ii=sI:eI
         hold on
         % color of inner side of the wings
         plot3(coords(bodyRows,1),coords(bodyRows,2),coords(bodyRows,3),'o','markersize',2,'color',colmap(1,:)) ;
-        plot3(coords(wing1Rows,1),coords(wing1Rows,2),coords(wing1Rows,3),'o','markersize',2,'color',colmap(3,:)) ;
-        plot3(coords(wing2Rows,1),coords(wing2Rows,2),coords(wing2Rows,3),'o','markersize',2,'color',colmap(2,:)) ;
+        plot3(coords(wing1Rows,1),coords(wing1Rows,2),coords(wing1Rows,3),'o','markersize',2,'color',colmap(2,:)) ;
+        plot3(coords(wing2Rows,1),coords(wing2Rows,2),coords(wing2Rows,3),'o','markersize',2,'color',colmap(3,:)) ;
         
         % plot centroids of three clusters
         plot3(newCentroids(:,1), newCentroids(:,2), newCentroids(:,3), ...
@@ -789,14 +789,14 @@ for ii=sI:eI
         farPointLeft  = farPoint2 ;
         plot3(farPointRight(1), farPointRight(2), farPointRight(3),'ks','markersize',14,'markerfacecolor','y','linewidth',2) ;
         %plot3(rightWingVoxels(list,1), rightWingVoxels(list,2), rightWingVoxels(list,3),'o','markersize',2,'color',[0.75 0 0]) ;
-        % color of outside of the left wing
-        plot3(wing1LargestCC(:,1), wing1LargestCC(:,2), wing1LargestCC(:,3),'o','markersize',2,'color',[0 0 0.6]) ;
+        % color of outside of the wing
+        plot3(wing1LargestCC(:,1), wing1LargestCC(:,2), wing1LargestCC(:,3),'o','markersize',2,'color',[0.6 0 0]) ;
         
         %[p, ~, list] = farthestPoint(leftWingVoxels, cBody, LL) ;
         plot3(farPointLeft(1), farPointLeft(2), farPointLeft(3),'ks','markersize',14,'markerfacecolor','y','linewidth',2) ;
         %plot3(leftWingVoxels(list,1), leftWingVoxels(list,2), leftWingVoxels(list,3),'o','markersize',2,'color',[0 0 0.75]) ;
-        % color of outside of the right wing
-        plot3(wing2LargestCC(:,1), wing2LargestCC(:,2), wing2LargestCC(:,3),'o','markersize',2,'color',[0.6 0 0]) ;
+        % color of outside of the wing
+        plot3(wing2LargestCC(:,1), wing2LargestCC(:,2), wing2LargestCC(:,3),'o','markersize',2,'color',[0 0 0.6]) ;
         
         xlabel('x') ; ylabel('y'); zlabel('z') ;
         
