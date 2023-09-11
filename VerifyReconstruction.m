@@ -11,8 +11,8 @@ for ii=sI:eI
 
     scatter3(body_xyz(:,1),body_xyz(:,2),body_xyz(:,3),'g')
     hold on
-    scatter3(wing1_corrected(:,1),wing1_corrected(:,2),wing1_corrected(:,3),'b')
-    scatter3(wing2_corrected(:,1),wing2_corrected(:,2),wing2_corrected(:,3),'r')
-    pause()
+    scatter3(wing1_corrected(:,1),wing1_corrected(:,2),wing1_corrected(:,3),'r')
+    scatter3(wing2_corrected(:,1),wing2_corrected(:,2),wing2_corrected(:,3),'b')
     hold off
+end
 end
