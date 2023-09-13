@@ -29,7 +29,7 @@ fly = 1000; %change fly number to match the number of fly you are analyzing
 
 %% tracking start and end index
 sI = 20; %start frame
-eI = 40; %end frame
+eI = 8020; %end frame
 laser_activation_frame=8000; % the exact frame in which the wing got hit by laser
 init = load([root '\fly_' num2str(fly) '\init\init.mat']); %load intialization
 load([root '\fly_' num2str(fly) '\init\init.mat']);

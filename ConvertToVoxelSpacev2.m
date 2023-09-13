@@ -20,8 +20,8 @@ for ii=sI:eI
     if plot_data
         scatter3(BodyRecV(:,1),BodyRecV(:,2),BodyRecV(:,3),'g')
         hold on
-        scatter3(wingRV(:,1),wingRV(:,2),wingRV(:,3),'b')
-        scatter3(wingLV(:,1),wingLV(:,2),wingLV(:,3),'r')
+        scatter3(wingRV(:,1),wingRV(:,2),wingRV(:,3),'r')
+        scatter3(wingLV(:,1),wingLV(:,2),wingLV(:,3),'b')
         drawnow
     end
 end
