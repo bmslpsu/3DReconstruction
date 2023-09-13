@@ -1,11 +1,11 @@
-# Improvement
+# Improvements
 ## Bug 1 improvement
 It is able to regenerate body angles for specific frames within the original frames. There is an option to overwrite the whole body angles file or correct some specific frames in the file if the body angles file exists.
 Now there is a limitation that the frames must be within the original frame range. More functions can be added if it is necessary.
 
 ## Bug 2
-A mixed color problem is fixed.
-New error found from Bug 2: the saved wing data may be flipped. The color marks for right and left wings are correct.
+A mixed color problem is fixed.  
+This is not a bug. It is just because the 3D model is show in a mirrored way. Red shows on the left but it is the right in fact, same for the blue. 
 
 # Bugs
 ## ~~Bug 1:~~
