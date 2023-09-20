@@ -1,6 +1,7 @@
 # Improvements
 ## Bug 1 improvement
-It is able to regenerate body angles for specific frames within the original frames. There is an option to overwrite the whole body angles file or correct some specific frames in the file if the body angles file exists.
+It is able to regenerate body angles for specific frames within the original frames. There is an option to overwrite the whole body angles file or correct some specific frames in the file if the body angles file exists.  
+If only need to calculate body angle, it will never overwrite frames now.
 Now there is a limitation that the frames must be within the original frame range. More functions can be added if it is necessary.
 
 ## Bug 2

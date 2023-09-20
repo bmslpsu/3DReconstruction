@@ -36,6 +36,34 @@ recon_initial=IntializeHeadingAndAngle(frames, mask_path, image_type, crop_reigo
 body_angle(1)=0; %initialize the first body angle
 
 %% continue to rest of frame
+rec_frame_files = dir(fullfile(recondir, '*.mat'));  % list all .mat file
+fileNamesList = {};
+for i = 1:length(rec_frame_files)
+    fileName = rec_frame_files(i).name;
+    fileNamesList{end+1} = fileName;
+end
+ask_user = 0;
+for ii = 2:n_frame
+    fI = num2str(frames(ii));
+    if ~ismember(['frame_' fI '.mat'], fileNamesList)
+        only_calculate_body_angle = 'n';
+    else
+        ask_user = 1;
+    end
+end
+
+if ask_user
+    while true
+        fprintf('Do you only need to calculate body angle?');
+        only_calculate_body_angle = input('[y/n]:', 's');
+        if only_calculate_body_angle == 'n' || only_calculate_body_angle == 'N'|| only_calculate_body_angle == 'y'|| only_calculate_body_angle == 'Y'
+            break;
+        else
+            warning(['The input is neither ', 'y ', 'nor ', 'n ', 'please re-enter.\n']);
+        end
+    end
+end
+
 parfor ii = 2:n_frame
     frame = frames(ii);
     % Load the tether masks for each view
@@ -61,18 +89,21 @@ parfor ii = 2:n_frame
     x_axis = x_axis / norm(x_axis);
     y_axis = cross(z_axis,x_axis);
 
-%%use the vec multiplication method. Gives the wrapped angle
-% det_vec=recon_initial.x_axis(1)*x_axis(2)+x_axis(1)*recon_initial.x_axis(2);
-% dot_vec=dot(recon_initial.x_axis(1:2), x_axis(1:2));
-% body_angle(ii)=atan2(det_vec,dot_vec);
+    %%use the vec multiplication method. Gives the wrapped angle
+    % det_vec=recon_initial.x_axis(1)*x_axis(2)+x_axis(1)*recon_initial.x_axis(2);
+    % dot_vec=dot(recon_initial.x_axis(1:2), x_axis(1:2));
+    % body_angle(ii)=atan2(det_vec,dot_vec);
 
-%% another solution
-cross_prod=cross(recon_initial.x_axis,x_axis);
-body_angle(ii)=atan2(dot(cross_prod,z_axis), dot(recon_initial.x_axis,x_axis));
+    %% another solution
+    cross_prod=cross(recon_initial.x_axis,x_axis);
+    body_angle(ii)=atan2(dot(cross_prod,z_axis), dot(recon_initial.x_axis,x_axis));
  	%% Save
-    savepath = fullfile(recondir, ['frame_' fI '.mat']);
-    parsave(savepath, frame,body_xyz,body_vector,x_axis,y_axis,z_axis,body_angle(ii))
+    savepath = fullfile(recondir, ['frame_' fI '.mat']);  
+    if only_calculate_body_angle == 'n' || only_calculate_body_angle == 'N'
+        parsave(savepath, frame,body_xyz,body_vector,x_axis,y_axis,z_axis,body_angle(ii))
+    end
 end
+
 if plot_flag
     close(f1_body_plot)
 end
