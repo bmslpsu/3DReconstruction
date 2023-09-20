@@ -30,12 +30,7 @@ sI = frames(1);
 n_frame = length(frames); %length of the frame vector to iterate each frame
 body_angle=zeros(1,length(frames));
 
-%% initialize first frame as the baseline
-recon_initial=IntializeHeadingAndAngle(frames, mask_path, image_type, crop_reigon, img_sz,...
-    DLt_Coef, Rec_Cord, z_axis, recondir);
-body_angle(1)=0; %initialize the first body angle
-
-%% continue to rest of frame
+%% check if exist files
 rec_frame_files = dir(fullfile(recondir, '*.mat'));  % list all .mat file
 fileNamesList = {};
 for i = 1:length(rec_frame_files)
@@ -51,7 +46,7 @@ for ii = 2:n_frame
         ask_user = 1;
     end
 end
-
+%% ask if file exists
 if ask_user
     while true
         fprintf('Do you only need to calculate body angle?');
@@ -64,6 +59,12 @@ if ask_user
     end
 end
 
+%% initialize first frame as the baseline
+recon_initial=IntializeHeadingAndAngle(frames, mask_path, image_type, crop_reigon, img_sz,...
+    DLt_Coef, Rec_Cord, z_axis, recondir, only_calculate_body_angle);
+body_angle(1)=0; %initialize the first body angle
+
+%% continue to rest of frame
 parfor ii = 2:n_frame
     frame = frames(ii);
     % Load the tether masks for each view
@@ -154,7 +155,7 @@ function parsave(savepath, frame,body_xyz,body_vector,x_axis,y_axis,z_axis,body_
 end
 
 function recon_initial=IntializeHeadingAndAngle(frames,mask_path,image_type,crop_reigon,img_sz,...
-    DLt_Coef, Rec_Cord, z_axis, recondir)
+    DLt_Coef, Rec_Cord, z_axis, recondir, only_calculate_body_angle)
 
 recon_initial.frame = frames(1);
 
@@ -208,6 +209,8 @@ body_angle=atan2(det_vec,dot_vec);
 recon_initial.body_angle = body_angle;
 
 %% Save
-savepath = fullfile(recondir, ['frame_' fI '.mat']);
-save(savepath, '-struct', 'recon_initial')
+if only_calculate_body_angle == 'n' || only_calculate_body_angle == 'N'
+    savepath = fullfile(recondir, ['frame_' fI '.mat']);
+    save(savepath, '-struct', 'recon_initial')
+end
 end
